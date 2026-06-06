@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-shell py-5">
+    <div class="container">
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-3"
+                         style="width: 100px; height: 100px; font-size: 36px;">
+                        {{ request.user.username|first|upper }}
+                    </div>
+                    <h4 class="mb-1">{{ request.user.username }}</h4>
+                    <p class="text-muted mb-2">{{ request.user.email }}</p>
+                    <span class="badge bg-info">Foydalanuvchi</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">Profil ma'lumotlari</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label class="form-label">CV fayl</label>
+                            {{ form.cv_file }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Tajriba</label>
+                            {{ form.experience }}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Saqlash</button>
+                    </form>
+
+                    {% if profile.cv_file %}
+                        <hr>
+                        <p class="mb-1"><strong>Yuklangan CV:</strong></p>
+                        <a href="{{ profile.cv_file.url }}" class="btn btn-outline-success btn-sm" target="_blank">
+                            CV ni ko‘rish
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0 mt-4">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">Yuborilgan arizalar</h4>
+        </div>
+        <div class="card-body">
+            {% if applications %}
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Ish nomi</th>
+                                <th>Davlat</th>
+                                <th>Maosh</th>
+                                <th>Status</th>
+                                <th>Sana</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for app in applications %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ app.job.title }}</td>
+                                <td>{{ app.job.country }}</td>
+                                <td>${{ app.job.salary }}</td>
+                                <td>
+                                    <span class="badge bg-warning text-dark">{{ app.status }}</span>
+                                </td>
+                                <td>{{ app.created_at|date:"d.m.Y H:i" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-muted mb-0">Siz hali birorta ishga ariza yubormagansiz.</p>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

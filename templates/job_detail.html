@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ job.title }}{% endblock %}
+
+{% block content %}
+<section class="page-shell py-5">
+    <div class="container">
+        <div class="job-detail-card page-card">
+    <h1 class="fw-bold">{{ job.title }}</h1>
+    <p class="text-muted">{{ job.company }}</p>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <p><strong>Davlat:</strong> {{ job.country }}</p>
+            <p><strong>Shahar:</strong> {{ job.city }}</p>
+            <p><strong>Maosh:</strong> {{ job.salary }}</p>
+        </div>
+        <div class="col-md-6">
+            <p><strong>Tajriba:</strong> {{ job.experience }}</p>
+            <p><strong>Manzil:</strong> {{ job.address }}</p>
+            <p><strong>Joylangan vaqt:</strong> {{ job.created_at|date:"d.m.Y" }}</p>
+        </div>
+    </div>
+
+    <hr>
+    <h4>Tavsif</h4>
+    <p>{{ job.description }}</p>
+
+    <div class="mt-4 d-flex gap-2 flex-wrap">
+        {% if user.is_authenticated %}
+            <a href="{% url 'apply_job' job.pk %}" class="btn btn-primary rounded-pill px-4">Ariza topshirish</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn btn-primary rounded-pill px-4">Ariza uchun login qiling</a>
+        {% endif %}
+
+        <a href="{% url 'consultation' %}" class="btn btn-outline-success rounded-pill px-4">Konsultatsiya olish</a>
+    </div>
+</div>
+{% endblock %}

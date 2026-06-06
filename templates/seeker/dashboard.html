@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title">Job Seeker Dashboard</h2>
+                    <p class="text-muted">Welcome, {{ user.username }}! Search vacancies, submit applications, and manage your profile.</p>
+                    <a class="btn btn-primary" href="{% url 'seeker_browse_jobs' %}">Browse Jobs</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="h5">Recent Applications</h3>
+                    <ul class="list-group list-group-flush mt-3">
+                        {% for application in applications|slice:":5" %}
+                            <li class="list-group-item">
+                                {{ application.job.title }} <span class="badge bg-secondary float-end">{{ application.status }}</span>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item text-muted">No applications yet.</li>
+                        {% endfor %}
+                    </ul>
+                    <a class="btn btn-outline-secondary mt-3" href="{% url 'seeker_view_applications' %}">All Applications</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

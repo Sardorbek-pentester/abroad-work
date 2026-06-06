@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title">Employer Dashboard</h2>
+                    <p class="text-muted">Welcome, {{ user.username }}! Manage your vacancy listings and candidate applications.</p>
+                    <div class="d-flex flex-column gap-3">
+                        <a class="btn btn-primary" href="{% url 'employer_create_job' %}">Create Job Post</a>
+                        <a class="btn btn-outline-secondary" href="{% url 'employer_my_jobs' %}">My Job Listings</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
