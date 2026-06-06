@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_DEBUG', 'True') in ('True', 'true', '1')
 
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost 127.0.0.1', 'abroad-work.onrender.com').split()
+ALLOWED_HOSTS = ['abroad-work.onrender.com', 'localhost', '127.0.0.1']
 
 # Production security settings: configure via environment variables.
 SECURE_HSTS_SECONDS = int(os.getenv('SECURE_HSTS_SECONDS', '0'))
