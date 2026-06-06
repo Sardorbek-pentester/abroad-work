@@ -75,7 +75,7 @@ def redirect_by_role(user):
     if user.role == 'employer':
         return redirect('employer_dashboard')
     elif user.role == 'job_seeker':
-        return redirect('job_seeker_dashboard')
+        return redirect('home')
     else:
         return redirect('home')
 
